@@ -1,0 +1,66 @@
+class Solution {
+public:
+    int search(vector<int>& nums, int target) {
+    int result = -1;
+    int pivot;
+    pivot = binary_search_pivot(nums, 0, nums.size());
+    result = binary_search(nums, target, 0, pivot);
+        if(result == -1)
+            result = binary_search(nums, target, pivot, nums.size());
+    return result;
+    }
+public:
+    int binary_search(vector<int>& v, int t, int start, int end){
+        //cout<<start << "/" << end << endl;
+        if(start == end)
+        {
+            if(t==v[start])
+                return start;
+            else
+                return -1;
+        }
+        else
+        {
+         int tep = (start+end)/2;
+         if(t == v[tep])
+            {
+            //cout << "tep: " << tep << endl;
+            return tep;
+            }
+         else if(t < v[tep])
+            {
+             return binary_search(v, t, start, tep);
+            }
+         else
+            {
+             return binary_search(v, t, tep, end);
+            }
+        }     
+    }
+public:
+    int binary_search_pivot(vector<int>& v, int start, int end){
+        //cout<<start << "/" << end << endl;
+        if(start == end)
+        {
+            if(v[start]<v[start-1]&&v[start]<v[start+1])
+                return start;
+            else
+                return -1;
+        }
+        else
+        {
+            int tep = (start + end)/2;
+            if(v[tep]<v[tep-1]&&v[tep]<v[tep+1])
+                return tep;
+            if(v[tep]>v[end])
+            {
+                return binary_search_pivot(v, tep-1, end);
+            }
+            else
+            {
+                return binary_search_pivot(v, start, tep+1);
+            }
+        }
+    }
+};
+
