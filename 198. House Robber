@@ -1,0 +1,39 @@
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+        int size = nums.size();
+        if(size==0)
+            return 0;
+        else
+        return sum(nums, size-1);
+    }
+    
+public:
+    int sum(vector<int>& nums, int pos) {        
+
+
+            if(pos==0)
+                return nums[0];
+            else if(pos==1)
+                if(nums[1]>nums[0])
+                    return nums[1];
+                else
+                    return nums[0];
+            else if(pos == 2)
+                if((nums[0]+nums[2])>(nums[1]))
+                    return nums[0]+nums[2];
+                else
+                    return nums[1];
+                   
+            else
+            {
+            int tep1 = nums[pos] + sum(nums, pos-2);
+            int tep2 = sum(nums, pos-1);
+                if(tep1>tep2)
+                    return tep1;                
+                else
+                    return tep2;
+            }
+    }
+    
+};
